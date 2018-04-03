@@ -11,4 +11,9 @@ package model;
  */
 public class Plateau extends ZoneCellule {
     
+    
+    public Plateau(int xN, int yN)
+    {
+        super(xN,yN);
+    }
 }
