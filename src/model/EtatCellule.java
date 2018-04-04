@@ -11,8 +11,8 @@ package model;
  */
 public enum EtatCellule {
     
-    VIVANTE(Boolean.TRUE),
-    MORTE(Boolean.FALSE);
+    VIVANTE(true),
+    MORTE(false);
     
     private Boolean etat;
     

@@ -17,7 +17,7 @@ public class ZoneCellule {
     protected int yN;
     protected ArrayList<ArrayList<Cellule>> tableauCellule;
     
-    protected ZoneCellule(int xN, int yN)
+    public ZoneCellule(int xN, int yN)
     {
         this.xN = xN;
         this.yN = yN;
@@ -26,12 +26,16 @@ public class ZoneCellule {
         
     }
     
-    protected void setEtatCellule(EtatCellule etat, int x, int y)
+    public EtatCellule getEtatCellule(int x, int y){
+        return tableauCellule.get(x).get(y).getEtat();
+    }
+    
+    public void setEtatCellule(EtatCellule etat, int x, int y)
     {
         this.tableauCellule.get(x).get(y).setEtat(etat);
     }
     
-    protected ArrayList<ArrayList<Boolean>> getTableauBooleen()
+    public ArrayList<ArrayList<Boolean>> getTableauBooleen()
     {
         ArrayList<ArrayList<Boolean>> tabBooleen = new ArrayList<ArrayList<Boolean>>();
         int x = 0;
