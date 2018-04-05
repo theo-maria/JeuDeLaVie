@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package jeuDeLaVie.ihm;
 
 import javax.swing.JPanel;
 
@@ -11,6 +11,6 @@ import javax.swing.JPanel;
  *
  * @author tmaria
  */
-public class EditionView extends JPanel {
+public class TamponView extends JPanel {
     
 }

@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package jeuDeLaVie.ihm;
+
+import javax.swing.JPanel;
 
 /**
  *
  * @author tmaria
  */
-public class JeuDeLaVieController {
-
-    public JeuDeLaVieController() {
-        
-    }
+public class EditionView extends JPanel {
     
 }
