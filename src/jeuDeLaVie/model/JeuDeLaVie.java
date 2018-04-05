@@ -5,11 +5,14 @@
  */
 package jeuDeLaVie.model;
 
+import java.util.Observable;
+
+
 /**
  *
  * @author tmaria
  */
-public class JeuDeLaVie {
+public class JeuDeLaVie extends Observable{
     
     private static final int X_PLATEAU_DEFAULT = 100;
     private static final int Y_PLATEAU_DEFAULT = 100;

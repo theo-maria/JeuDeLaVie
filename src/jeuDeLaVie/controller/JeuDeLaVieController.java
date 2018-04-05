@@ -13,18 +13,33 @@ import jeuDeLaVie.model.JeuDeLaVie;
  */
 public class JeuDeLaVieController {
     private JeuDeLaVie jeu;
+    private Boolean playing;
 
     public JeuDeLaVieController(JeuDeLaVie jeu) {
         this.jeu = jeu;
+    }
+    
+    public void switchPlayPause(){
+        
     }
     
     public void chargerTampon(){
         
     }
     
-    public void modifierCaseTampon(){
+    public void setCelluleTampon(){
         
     }
     
+    public void setTaillePlateau(){
+        
+    }
     
+    public void resetPlateau(){
+        
+    }
+    
+    public void randomInit(){
+        
+    }
 }
