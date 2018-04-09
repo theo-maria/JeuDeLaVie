@@ -22,8 +22,17 @@ public class ZoneCellule {
         this.xN = xN;
         this.yN = yN;
         
-        this.tableauCellule = new ArrayList<ArrayList<Cellule>>();
-        
+        creerCellules(xN, yN);
+    }
+    
+    protected void creerCellules(int x, int y){
+        tableauCellule = new ArrayList<>();
+        for(int i=0 ; i<x ; i++){
+            tableauCellule.add(new ArrayList<>());
+            for(int j=0 ; j<y ; j++){
+                tableauCellule.get(i).add(new Cellule());
+            }
+        }
     }
     
     public EtatCellule getEtatCellule(int x, int y){
@@ -32,12 +41,13 @@ public class ZoneCellule {
     
     public void setEtatCellule(EtatCellule etat, int x, int y)
     {
+        
         this.tableauCellule.get(x).get(y).setEtat(etat);
     }
     
     public ArrayList<ArrayList<Boolean>> getTableauBooleen()
     {
-        ArrayList<ArrayList<Boolean>> tabBooleen = new ArrayList<ArrayList<Boolean>>();
+        ArrayList<ArrayList<Boolean>> tabBooleen = new ArrayList<>();
         int x = 0;
         int y = 0;
         for(ArrayList<Cellule> ligneCellule : this.tableauCellule)
@@ -53,5 +63,20 @@ public class ZoneCellule {
             x++;
         }
         return tabBooleen;
+    }
+    
+    public void afficherZoneConsole(){
+        int cptLigne = 0;
+        for(ArrayList<Boolean> ligne : getTableauBooleen()){
+            System.out.print(cptLigne + "- ");
+            cptLigne++;
+            for(Boolean b : ligne){
+                if(b)
+                    System.out.print("o");
+                else
+                    System.out.print("-");
+            }
+            System.out.println("");
+        }
     }
 }

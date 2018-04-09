@@ -15,7 +15,7 @@ public class Cellule {
     
     protected Cellule()
     {
-        this.etat = EtatCellule.VIVANTE;
+        this.etat = EtatCellule.MORTE;
     }
     
     protected Cellule(EtatCellule etat)

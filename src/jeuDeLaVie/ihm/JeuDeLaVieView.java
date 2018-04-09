@@ -9,7 +9,9 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JFrame;
 import jeuDeLaVie.controller.JeuDeLaVieController;
+import jeuDeLaVie.model.EtatCellule;
 import jeuDeLaVie.model.JeuDeLaVie;
+import jeuDeLaVie.model.ZoneCellule;
 
 /**
  *
@@ -35,4 +37,27 @@ public class JeuDeLaVieView extends JFrame implements Observer {
         
     }
     
+    public static void testConsole(){
+        JeuDeLaVie jeu = new JeuDeLaVie();
+        ((ZoneCellule)jeu.plateau).setEtatCellule(EtatCellule.VIVANTE, 10, 10);
+        ((ZoneCellule)jeu.plateau).setEtatCellule(EtatCellule.VIVANTE, 10, 11);
+        ((ZoneCellule)jeu.plateau).setEtatCellule(EtatCellule.VIVANTE, 10, 12);
+        ((ZoneCellule)jeu.plateau).setEtatCellule(EtatCellule.VIVANTE, 11, 9);
+        ((ZoneCellule)jeu.plateau).setEtatCellule(EtatCellule.VIVANTE, 11, 10);
+        ((ZoneCellule)jeu.plateau).setEtatCellule(EtatCellule.VIVANTE, 11, 11);
+        
+        System.out.println("--- ETAT n°0 ---");
+        ((ZoneCellule)jeu.plateau).afficherZoneConsole();
+        
+        for(int i=0;i<5;i++){
+            jeu.plateau.gotoEtatSuivant();
+            System.out.println("\n\n\n");
+            System.out.println("--- ETAT n°" + (i+1) + "---");
+            ((ZoneCellule)jeu.plateau).afficherZoneConsole();
+        }
+    }
+    
+    public static void main(String [ ] args){
+        testConsole();
+    }
 }

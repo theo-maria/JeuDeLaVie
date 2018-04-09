@@ -40,10 +40,7 @@ public class JeuDeLaVie extends Observable{
         vieMin = VIE_MIN_DEFAULT;
         vieMax = VIE_MAX_DEFAULT;
         
-        plateau = new Plateau(100, 100);
+        plateau = new Plateau(20, 20);
         zoneTampon = new ZoneCellule(10, 10);
     }
-    
-    
-    
 }
