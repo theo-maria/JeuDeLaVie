@@ -5,12 +5,16 @@
  */
 package jeuDeLaVie.ihm;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import jeuDeLaVie.controller.JeuDeLaVieController;
 import jeuDeLaVie.model.EtatCellule;
 import jeuDeLaVie.model.JeuDeLaVie;
+import jeuDeLaVie.model.JeuxPredefinisView;
 import jeuDeLaVie.model.ZoneCellule;
 
 /**
@@ -21,13 +25,33 @@ public class JeuDeLaVieView extends JFrame implements Observer {
     private JeuDeLaVie jeu;
     private JeuDeLaVieController controller;
     
+    private EditionView editPanel;
+    private ParamsView paramPanel;
+    private JButton pauseStartButton;
+    private PlateauView plateauPanel;
+    private TamponView tamponPanel;
+    private JeuxPredefinisView jeuxPredefinisPanel;
+    private JButton chargeButton;
+    private JButton quitButton;
+    
     public JeuDeLaVieView(JeuDeLaVie jeu, JeuDeLaVieController controller) {
         setLocation (100, 100);
         setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         
         this.jeu = jeu;
         this.controller = controller;
+
+        editPanel = new EditionView();
+        paramPanel = new ParamsView();
+        pauseStartButton = new JButton();
+        plateauPanel = new PlateauView();
+        tamponPanel = new TamponView();
+        jeuxPredefinisPanel = new JeuxPredefinisView();
+        chargeButton = new JButton();
+        quitButton = new JButton("Quit");
+        quitButton.addActionListener(new QuitButtonListener());
         
+        add(quitButton);
         pack();
         setVisible(true);
     }
@@ -35,6 +59,13 @@ public class JeuDeLaVieView extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         
+    }
+    
+    private class QuitButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
     }
     
     public static void testConsole(){

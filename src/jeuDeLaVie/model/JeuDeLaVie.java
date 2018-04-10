@@ -16,8 +16,8 @@ public class JeuDeLaVie extends Observable{
     
     private static final int X_PLATEAU_DEFAULT = 100;
     private static final int Y_PLATEAU_DEFAULT = 100;
-    private static final int X_PLATEAU_MIN = 50;
-    private static final int Y_PLATEAU_MIN = 50;
+    private static final int X_PLATEAU_MIN = 40;
+    private static final int Y_PLATEAU_MIN = 40;
     private static final int X_TAMPON_DEFAULT = 10;
     private static final int Y_TAMPON_DEFAULT = 10;
     
@@ -40,7 +40,7 @@ public class JeuDeLaVie extends Observable{
         vieMin = VIE_MIN_DEFAULT;
         vieMax = VIE_MAX_DEFAULT;
         
-        plateau = new Plateau(20, 20);
-        zoneTampon = new ZoneCellule(10, 10);
+        plateau = new Plateau(X_PLATEAU_DEFAULT, Y_PLATEAU_DEFAULT);
+        zoneTampon = new ZoneCellule(X_TAMPON_DEFAULT, Y_TAMPON_DEFAULT);
     }
 }
