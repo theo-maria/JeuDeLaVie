@@ -6,12 +6,13 @@
 package jeuDeLaVie.model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  *
  * @author tmaria
  */
-public class ZoneCellule {
+public class ZoneCellule extends Observable {
     
     protected int xN;
     protected int yN;
@@ -79,4 +80,14 @@ public class ZoneCellule {
             System.out.println("");
         }
     }
+
+    public int getxN() {
+        return xN;
+    }
+
+    public int getyN() {
+        return yN;
+    }
+    
+    
 }

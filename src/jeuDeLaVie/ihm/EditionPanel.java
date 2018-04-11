@@ -5,12 +5,17 @@
  */
 package jeuDeLaVie.ihm;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author tmaria
  */
-public class PlateauView extends JPanel {
+public class EditionPanel extends JPanel {
+
+    public EditionPanel() {
+        add(new JLabel("Edition du plateau"));
+    }
     
 }

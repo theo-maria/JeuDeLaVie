@@ -5,14 +5,15 @@
  */
 package jeuDeLaVie.model;
 
-import java.util.Observable;
+import java.util.Observer;
+
 
 
 /**
  *
  * @author tmaria
  */
-public class JeuDeLaVie extends Observable{
+public class JeuDeLaVie{
     
     private static final int X_PLATEAU_DEFAULT = 100;
     private static final int Y_PLATEAU_DEFAULT = 100;
@@ -42,5 +43,10 @@ public class JeuDeLaVie extends Observable{
         
         plateau = new Plateau(X_PLATEAU_DEFAULT, Y_PLATEAU_DEFAULT);
         zoneTampon = new ZoneCellule(X_TAMPON_DEFAULT, Y_TAMPON_DEFAULT);
+    }
+    
+    public void setObservers(Observer plateauObserver, Observer tamponObserver){
+        plateau.addObserver(plateauObserver);
+        zoneTampon.addObserver(tamponObserver);
     }
 }
