@@ -68,6 +68,8 @@ public class Plateau extends ZoneCellule {
                     setEtatCellule(EtatCellule.VIVANTE, i, j);
             }
         }
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public void redimensionner(int xN, int yN){

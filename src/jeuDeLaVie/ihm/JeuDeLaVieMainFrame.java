@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,7 +24,7 @@ import jeuDeLaVie.model.ZoneCellule;
  *
  * @author tmaria
  */
-public class JeuDeLaVieMainFrame extends JFrame {
+public class JeuDeLaVieMainFrame extends JFrame implements Observer{
     private JeuDeLaVie jeu;
     private JeuDeLaVieController controller;
     
@@ -45,12 +47,14 @@ public class JeuDeLaVieMainFrame extends JFrame {
         editPanel = new EditionPanel();
         paramPanel = new ParamsPanel();
         pauseStartButton = new JButton();
-        plateauPanel = new PlateauPanel(jeu.plateau);
+        plateauPanel = new PlateauPanel(jeu.plateau, controller);
         tamponPanel = new TamponPanel();
         jeuxPredefinisPanel = new JeuxPredefinisView();
         chargeButton = new JButton("Charger");
         quitButton = new JButton("Quit");
         quitButton.addActionListener(new QuitButtonListener());
+        pauseStartButton.addActionListener(new PauseStartListener());
+        pauseStartButton.setText("|>");
         
         Box leftBox = Box.createVerticalBox();
         Box rightBox = Box.createVerticalBox();
@@ -73,11 +77,26 @@ public class JeuDeLaVieMainFrame extends JFrame {
         
         setVisible(true);
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(controller.isPlaying())
+            pauseStartButton.setText("||");
+        else
+            pauseStartButton.setText("|>");
+    }
     
     private class QuitButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
+        }
+    }
+    
+    private class PauseStartListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controller.switchPlayPause();
         }
     }
     
@@ -87,7 +106,7 @@ public class JeuDeLaVieMainFrame extends JFrame {
         JeuDeLaVieController controller = new JeuDeLaVieController(jeu);
         JeuDeLaVieMainFrame jeuView = new JeuDeLaVieMainFrame(jeu, controller);
         jeu.setObservers(jeuView.getPlateauPanel(), jeuView.getTamponPanel());
-        
+        controller.addObserver(jeuView);
         jeuView.pack();
     }
 
@@ -97,6 +116,10 @@ public class JeuDeLaVieMainFrame extends JFrame {
 
     public TamponPanel getTamponPanel() {
         return tamponPanel;
+    }
+
+    public JeuDeLaVieController getController() {
+        return controller;
     }
     
     

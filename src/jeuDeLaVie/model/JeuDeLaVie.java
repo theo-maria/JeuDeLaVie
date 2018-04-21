@@ -15,8 +15,8 @@ import java.util.Observer;
  */
 public class JeuDeLaVie{
     
-    private static final int X_PLATEAU_DEFAULT = 100;
-    private static final int Y_PLATEAU_DEFAULT = 100;
+    private static final int X_PLATEAU_DEFAULT = 40;
+    private static final int Y_PLATEAU_DEFAULT = 40;
     private static final int X_PLATEAU_MIN = 40;
     private static final int Y_PLATEAU_MIN = 40;
     private static final int X_TAMPON_DEFAULT = 10;
