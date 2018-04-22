@@ -15,11 +15,9 @@ import jeuDeLaVie.model.Plateau;
  */
 public class JeuDeLaViePlayer extends Thread{
 
-    private Plateau plateau;
     private JeuDeLaVieController controller;
     
-    public JeuDeLaViePlayer(Plateau plateau, JeuDeLaVieController controller) {
-        this.plateau = plateau;
+    public JeuDeLaViePlayer(JeuDeLaVieController controller) {
         this.controller = controller;
     }
 
@@ -28,9 +26,9 @@ public class JeuDeLaViePlayer extends Thread{
     public void run() {
         while (!Thread.currentThread().isInterrupted()){
             if(controller.isPlaying()){
-                plateau.gotoEtatSuivant();
+                controller.jeu.plateau.gotoEtatSuivant();
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(JeuDeLaViePlayer.class.getName()).log(Level.SEVERE, null, ex);
                 }

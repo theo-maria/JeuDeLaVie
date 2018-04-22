@@ -25,13 +25,11 @@ import jeuDeLaVie.model.ZoneCellule;
  */
 public class TamponPanel extends JPanel implements Observer, MouseListener {
 
-    private ZoneCellule tampon;
     private final int TAILLE_CELLULE = 8;
     private JeuDeLaVieController controleur;
 
-    public TamponPanel(ZoneCellule tampon, JeuDeLaVieController controleur) {
-        this.tampon = tampon;
-        this.setSize(tampon.getxN()*TAILLE_CELLULE, tampon.getyN()*TAILLE_CELLULE);
+    public TamponPanel(JeuDeLaVieController controleur) {
+        this.setSize(controleur.jeu.zoneTampon.getxN()*TAILLE_CELLULE, controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE);
         this.controleur = controleur;
         this.addMouseListener(this);
     }
@@ -44,29 +42,29 @@ public class TamponPanel extends JPanel implements Observer, MouseListener {
         Line2D line;
         Rectangle2D rectangle;
         
-        for(int i=0;i<tampon.getxN();i++){
-            for(int j=0;j<tampon.getyN();j++){
-                if(tampon.getTableauBooleen().get(i).get(j) == true){
+        for(int i=0;i<controleur.jeu.zoneTampon.getxN();i++){
+            for(int j=0;j<controleur.jeu.zoneTampon.getyN();j++){
+                if(controleur.jeu.zoneTampon.getTableauBooleen().get(i).get(j) == true){
                     rectangle = new Rectangle2D.Float(i*TAILLE_CELLULE, j*TAILLE_CELLULE, TAILLE_CELLULE, TAILLE_CELLULE);
                     g2.setColor(Color.RED);
                     g2.fill(rectangle);
                 }
-                line = new Line2D.Float(0,i*TAILLE_CELLULE,tampon.getxN()*TAILLE_CELLULE,i*TAILLE_CELLULE);
+                line = new Line2D.Float(0,i*TAILLE_CELLULE,controleur.jeu.zoneTampon.getxN()*TAILLE_CELLULE,i*TAILLE_CELLULE);
                 g2.setColor(Color.BLACK);
                 g2.draw(line);
             }
-            line = new Line2D.Float(i*TAILLE_CELLULE,0,i*TAILLE_CELLULE,tampon.getyN()*TAILLE_CELLULE);
+            line = new Line2D.Float(i*TAILLE_CELLULE,0,i*TAILLE_CELLULE,controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE);
             g2.setColor(Color.BLACK);
             g2.draw(line);
         }
         
-        line = new Line2D.Float(0,0,tampon.getxN()*TAILLE_CELLULE,0);
+        line = new Line2D.Float(0,0,controleur.jeu.zoneTampon.getxN()*TAILLE_CELLULE,0);
         g2.draw(line);
-        line = new Line2D.Float(0,0,0,tampon.getyN()*TAILLE_CELLULE);
+        line = new Line2D.Float(0,0,0,controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE);
         g2.draw(line);
-        line = new Line2D.Float(0,tampon.getyN()*TAILLE_CELLULE,tampon.getxN()*TAILLE_CELLULE,tampon.getyN()*TAILLE_CELLULE);
+        line = new Line2D.Float(0,controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE,controleur.jeu.zoneTampon.getxN()*TAILLE_CELLULE,controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE);
         g2.draw(line);
-        line = new Line2D.Float(tampon.getxN()*TAILLE_CELLULE,0,tampon.getyN()*TAILLE_CELLULE,tampon.getyN()*TAILLE_CELLULE);
+        line = new Line2D.Float(controleur.jeu.zoneTampon.getxN()*TAILLE_CELLULE,0,controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE,controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE);
         g2.draw(line);
     }
     

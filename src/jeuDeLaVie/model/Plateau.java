@@ -7,6 +7,7 @@ package jeuDeLaVie.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -22,11 +23,27 @@ public class Plateau extends ZoneCellule {
     public Plateau(int xN, int yN, List<List<Boolean>> tableau)
     {
         super(xN,yN);
+        for(int i=0;i<xN;i++){
+            for(int j=0;j<yN;j++){
+                if(tableau.get(i) != null){
+                    if(tableau.get(i).get(j) != null)
+                        if(tableau.get(i).get(j))
+                            setEtatCellule(EtatCellule.VIVANTE, i, j);
+                }
+            }
+        }
     }
     
     public Plateau(int xN, int yN, float p)
     {
         super(xN,yN);
+        Random r = new Random();
+        for(int i=0;i<xN;i++){
+            for(int j=0;j<yN;j++){
+                if(r.nextFloat() < p)
+                    setEtatCellule(EtatCellule.VIVANTE, i, j);
+            }
+        }
     }
     
     private List<Cellule> getCellulesVoisines(int x, int y){
@@ -68,11 +85,6 @@ public class Plateau extends ZoneCellule {
                     setEtatCellule(EtatCellule.VIVANTE, i, j);
             }
         }
-        this.setChanged();
-        this.notifyObservers();
-    }
-    
-    public void redimensionner(int xN, int yN){
         this.setChanged();
         this.notifyObservers();
     }

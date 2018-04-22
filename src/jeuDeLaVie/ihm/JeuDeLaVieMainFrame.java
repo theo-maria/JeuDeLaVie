@@ -25,7 +25,6 @@ import jeuDeLaVie.model.ZoneCellule;
  * @author tmaria
  */
 public class JeuDeLaVieMainFrame extends JFrame implements Observer{
-    private JeuDeLaVie jeu;
     private JeuDeLaVieController controller;
     
     private EditionPanel editPanel;
@@ -37,18 +36,17 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
     private JButton chargeButton;
     private JButton quitButton;
     
-    public JeuDeLaVieMainFrame(JeuDeLaVie jeu, JeuDeLaVieController controller) {
+    public JeuDeLaVieMainFrame(JeuDeLaVieController controller) {
         setLocation (100, 100);
         setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         
-        this.jeu = jeu;
         this.controller = controller;
 
-        editPanel = new EditionPanel();
+        editPanel = new EditionPanel(controller);
         paramPanel = new ParamsPanel();
         pauseStartButton = new JButton();
-        plateauPanel = new PlateauPanel(jeu.plateau, controller);
-        tamponPanel = new TamponPanel(jeu.zoneTampon, controller);
+        plateauPanel = new PlateauPanel(controller);
+        tamponPanel = new TamponPanel(controller);
         jeuxPredefinisPanel = new JeuxPredefinisView();
         chargeButton = new JButton("Charger");
         quitButton = new JButton("Quit");
@@ -113,10 +111,10 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
     
     public static void main(String [ ] args){
         //testConsole();
-        JeuDeLaVie jeu = new JeuDeLaVie();
-        JeuDeLaVieController controller = new JeuDeLaVieController(jeu);
-        JeuDeLaVieMainFrame jeuView = new JeuDeLaVieMainFrame(jeu, controller);
-        jeu.setObservers(jeuView.getPlateauPanel(), jeuView.getTamponPanel());
+        
+        JeuDeLaVieController controller = new JeuDeLaVieController();
+        JeuDeLaVieMainFrame jeuView = new JeuDeLaVieMainFrame(controller);
+        controller.jeu.setObservers(jeuView.getPlateauPanel(), jeuView.getTamponPanel());
         controller.addObserver(jeuView);
         jeuView.pack();
     }

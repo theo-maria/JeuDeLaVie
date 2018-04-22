@@ -15,8 +15,8 @@ import java.util.Observer;
  */
 public class JeuDeLaVie{
     
-    private static final int X_PLATEAU_DEFAULT = 40;
-    private static final int Y_PLATEAU_DEFAULT = 40;
+    private static final int X_PLATEAU_DEFAULT = 100;
+    private static final int Y_PLATEAU_DEFAULT = 100;
     private static final int X_PLATEAU_MIN = 40;
     private static final int Y_PLATEAU_MIN = 40;
     private static final int X_TAMPON_DEFAULT = 10;
@@ -34,6 +34,9 @@ public class JeuDeLaVie{
     
     public Plateau plateau;
     public ZoneCellule zoneTampon;
+    
+    private Observer plateauObserver;
+    private Observer tamponObserver;
 
     public JeuDeLaVie(){
         mortSolitude = MORT_SOLITUDE_DEFAULT;
@@ -46,7 +49,37 @@ public class JeuDeLaVie{
     }
     
     public void setObservers(Observer plateauObserver, Observer tamponObserver){
+        this.tamponObserver = tamponObserver;
+        this.plateauObserver = plateauObserver;
         plateau.addObserver(plateauObserver);
         zoneTampon.addObserver(tamponObserver);
+    }
+    
+    public int[] redimensionnerPlateau(int xN, int yN){
+        if(xN < X_PLATEAU_MIN)
+            xN = X_PLATEAU_MIN;
+        if(yN < Y_PLATEAU_MIN)
+            yN = Y_PLATEAU_MIN;
+        
+        Plateau newPlateau = new Plateau(xN, yN);
+        newPlateau.addObserver(plateauObserver);
+        plateau.deleteObserver(plateauObserver);
+        for(int i=0;i < xN; i++){
+            for(int j=0;j < yN;j++){
+                if(i < plateau.getxN() && j < plateau.getyN()){
+                    newPlateau.setEtatCellule(plateau.getEtatCellule(i, j), i, j);
+                }
+            }
+        }
+        plateau = newPlateau;
+        int[] dimensions = {xN, yN};
+        return dimensions;
+    }
+    
+    public void initialiserPlateauAleatoire(float proba){
+        Plateau newPlateau = new Plateau(plateau.getxN(), plateau.getyN(), proba);
+        newPlateau.addObserver(plateauObserver);
+        plateau.deleteObserver(plateauObserver);
+        plateau = newPlateau;
     }
 }

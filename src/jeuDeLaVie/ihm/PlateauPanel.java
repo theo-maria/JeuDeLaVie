@@ -39,16 +39,14 @@ import jeuDeLaVie.model.ZoneCellule;
  * @author tmaria
  */
 public class PlateauPanel extends JPanel implements Observer, MouseWheelListener, MouseListener, KeyListener {
-    private Plateau plateau;
     private int tailleCellule;
     private JeuDeLaVieController controleur;
     private Boolean shiftPressed = false;
     
-    public PlateauPanel(Plateau plateau, JeuDeLaVieController controleur) {
+    public PlateauPanel(JeuDeLaVieController controleur) {
         setMinimumSize(new Dimension(200,200));
         setSize(500,500);
         this.tailleCellule = 5;
-        this.plateau = plateau;
         this.controleur = controleur;
         this.addMouseWheelListener(this);
         this.addMouseListener(this);
@@ -89,29 +87,29 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
         Rectangle2D rectangle;
         
         
-        for(int i=0;i<plateau.getxN();i++){
-            for(int j=0;j<plateau.getyN();j++){
-                if(plateau.getTableauBooleen().get(i).get(j) == true){
+        for(int i=0;i<controleur.jeu.plateau.getxN();i++){
+            for(int j=0;j<controleur.jeu.plateau.getyN();j++){
+                if(controleur.jeu.plateau.getTableauBooleen().get(i).get(j) == true){
                     rectangle = new Rectangle2D.Float(i*tailleCellule, j*tailleCellule, tailleCellule, tailleCellule);
                     g2.setColor(Color.RED);
                     g2.fill(rectangle);
                 }
-                line = new Line2D.Float(0,i*tailleCellule,plateau.getxN()*tailleCellule,i*tailleCellule);
+                line = new Line2D.Float(0,i*tailleCellule,controleur.jeu.plateau.getxN()*tailleCellule,i*tailleCellule);
                 g2.setColor(Color.BLACK);
                 g2.draw(line);
             }
-            line = new Line2D.Float(i*tailleCellule,0,i*tailleCellule,plateau.getyN()*tailleCellule);
+            line = new Line2D.Float(i*tailleCellule,0,i*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
             g2.setColor(Color.BLACK);
             g2.draw(line);
         }
         
-        line = new Line2D.Float(0,0,plateau.getxN()*tailleCellule,0);
+        line = new Line2D.Float(0,0,controleur.jeu.plateau.getxN()*tailleCellule,0);
         g2.draw(line);
-        line = new Line2D.Float(0,0,0,plateau.getyN()*tailleCellule);
+        line = new Line2D.Float(0,0,0,controleur.jeu.plateau.getyN()*tailleCellule);
         g2.draw(line);
-        line = new Line2D.Float(0,plateau.getyN()*tailleCellule,plateau.getxN()*tailleCellule,plateau.getyN()*tailleCellule);
+        line = new Line2D.Float(0,controleur.jeu.plateau.getyN()*tailleCellule,controleur.jeu.plateau.getxN()*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
         g2.draw(line);
-        line = new Line2D.Float(plateau.getxN()*tailleCellule,0,plateau.getyN()*tailleCellule,plateau.getyN()*tailleCellule);
+        line = new Line2D.Float(controleur.jeu.plateau.getxN()*tailleCellule,0,controleur.jeu.plateau.getyN()*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
         g2.draw(line);
     }
     
@@ -121,7 +119,7 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
     }
     
     public void dezoom(){
-        if(plateau.getxN() * (tailleCellule - 1) >= 200 )
+        if(controleur.jeu.plateau.getxN() * (tailleCellule - 1) >= 200 )
             tailleCellule-=1;
     } 
 
@@ -147,10 +145,17 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
             controleur.switchEtatCasePlateau(tailleCellule, location.x, location.y);
             repaint();
         }
-        else if(e.getButton() == MouseEvent.BUTTON3 && shiftPressed && !controleur.isPlaying()){
-            Point location = e.getPoint();
-            controleur.chargerTamponLocation(tailleCellule, location.x, location.y);
-            repaint();
+        else if(e.getButton() == MouseEvent.BUTTON3 && !controleur.isPlaying()){
+            if(shiftPressed){
+                Point location = e.getPoint();
+                controleur.chargerTamponLocation(tailleCellule, location.x, location.y);
+                repaint();
+            }
+            else{
+                Point location = e.getPoint();
+                controleur.chargerPlateauLocation(tailleCellule, location.x, location.y);
+                repaint();
+            }
         }
     }
 

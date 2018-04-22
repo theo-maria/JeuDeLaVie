@@ -97,5 +97,7 @@ public class ZoneCellule extends Observable {
             for(Cellule c : liste)
                 c.setEtat(EtatCellule.MORTE);
         }
+        this.setChanged();
+        this.notifyObservers();
     }
 }
