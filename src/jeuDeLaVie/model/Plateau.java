@@ -73,6 +73,12 @@ public class Plateau extends ZoneCellule {
     }
     
     public void redimensionner(int xN, int yN){
-        
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    @Override
+    public void reinitialiser(){
+        super.reinitialiser();
     }
 }

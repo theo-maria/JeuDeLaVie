@@ -25,14 +25,24 @@ public class JeuDeLaVieController extends Observable{
         player.start();
     }
     
-    public void switchEtatCase(float tailleCellule, int posX, int posY){
-        int x = (int)(posX/tailleCellule);
-        int y = (int)(posY/tailleCellule);
+    public void switchEtatCasePlateau(int tailleCellule, int posX, int posY){
+        int x = posX/tailleCellule;
+        int y = posY/tailleCellule;
         
         if (jeu.plateau.getEtatCellule(x, y).equals(EtatCellule.MORTE))
             jeu.plateau.setEtatCellule(EtatCellule.VIVANTE, x, y);
         else
             jeu.plateau.setEtatCellule(EtatCellule.MORTE, x, y);
+    }
+    
+    public void switchEtatCaseTampon(int tailleCellule, int posX, int posY){
+        int x = posX/tailleCellule;
+        int y = posY/tailleCellule;
+        
+        if (jeu.zoneTampon.getEtatCellule(x, y).equals(EtatCellule.MORTE))
+            jeu.zoneTampon.setEtatCellule(EtatCellule.VIVANTE, x, y);
+        else
+            jeu.zoneTampon.setEtatCellule(EtatCellule.MORTE, x, y);
     }
     
     public void switchPlayPause(){
@@ -45,18 +55,43 @@ public class JeuDeLaVieController extends Observable{
     }
     
     public void chargerTampon(){
-        
+        jeu.plateau.reinitialiser();
+        for(int i=0;i<jeu.zoneTampon.getxN();i++){
+            for(int j=0;j<jeu.zoneTampon.getyN();j++){
+                if(jeu.zoneTampon.getEtatCellule(i, j).equals(EtatCellule.VIVANTE))
+                    jeu.plateau.setEtatCellule(EtatCellule.VIVANTE, i, j);
+            }
+        }
     }
     
-    public void setCelluleTampon(){
-        
+    public void chargerTamponLocation(int tailleCellule, int startX, int startY){
+        int x = startX/tailleCellule;
+        int y = startY/tailleCellule;
+        for(int i=0;i< (jeu.zoneTampon.getxN());i++){
+            for(int j=0;j<jeu.zoneTampon.getyN();j++){
+                if((i+x < jeu.plateau.getxN()) && (j+y < jeu.plateau.getyN()) ){
+                    if(jeu.zoneTampon.getEtatCellule(i, j).equals(EtatCellule.VIVANTE))
+                        jeu.plateau.setEtatCellule(EtatCellule.VIVANTE, i+x, j+y);
+                    else
+                        jeu.plateau.setEtatCellule(EtatCellule.MORTE, i+x, j+y);
+                }
+                
+            }
+        }
     }
+    
+    public void chargerPlateauLocation(int tailleCellule, int startX, int startY){
+        jeu.zoneTampon.reinitialiser();
+        /*for(int i=startX/tailleCellule;i<jeu.zoneTampon.getxN();i++){
+            for(int j=startY/tailleCellule;j<jeu.zoneTampon.getyN();j++){
+                if(jeu.zoneTampon.getEtatCellule(i, j).equals(EtatCellule.VIVANTE))
+                    jeu.plateau.setEtatCellule(EtatCellule.VIVANTE, i, j);
+            }
+        }*/
+    }
+    
     
     public void setTaillePlateau(){
-        
-    }
-    
-    public void resetPlateau(){
         
     }
     

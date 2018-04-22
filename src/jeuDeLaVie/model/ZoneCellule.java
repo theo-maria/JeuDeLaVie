@@ -34,6 +34,8 @@ public class ZoneCellule extends Observable {
                 tableauCellule.get(i).add(new Cellule());
             }
         }
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public EtatCellule getEtatCellule(int x, int y){
@@ -42,8 +44,9 @@ public class ZoneCellule extends Observable {
     
     public void setEtatCellule(EtatCellule etat, int x, int y)
     {
-        
         this.tableauCellule.get(x).get(y).setEtat(etat);
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public ArrayList<ArrayList<Boolean>> getTableauBooleen()
@@ -89,5 +92,10 @@ public class ZoneCellule extends Observable {
         return yN;
     }
     
-    
+    public void reinitialiser(){
+        for(ArrayList<Cellule> liste : tableauCellule){
+            for(Cellule c : liste)
+                c.setEtat(EtatCellule.MORTE);
+        }
+    }
 }

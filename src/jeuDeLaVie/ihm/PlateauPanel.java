@@ -10,6 +10,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
@@ -19,7 +23,12 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import jeuDeLaVie.controller.JeuDeLaVieController;
 import jeuDeLaVie.model.EtatCellule;
 import jeuDeLaVie.model.Plateau;
@@ -29,10 +38,11 @@ import jeuDeLaVie.model.ZoneCellule;
  *
  * @author tmaria
  */
-public class PlateauPanel extends JPanel implements Observer, MouseWheelListener, MouseListener {
+public class PlateauPanel extends JPanel implements Observer, MouseWheelListener, MouseListener, KeyListener {
     private Plateau plateau;
-    private float tailleCellule;
+    private int tailleCellule;
     private JeuDeLaVieController controleur;
+    private Boolean shiftPressed = false;
     
     public PlateauPanel(Plateau plateau, JeuDeLaVieController controleur) {
         setMinimumSize(new Dimension(200,200));
@@ -42,6 +52,27 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
         this.controleur = controleur;
         this.addMouseWheelListener(this);
         this.addMouseListener(this);
+        this.setFocusable(true);
+        this.requestFocus();
+        
+        InputMap im = getInputMap(WHEN_IN_FOCUSED_WINDOW);
+        ActionMap am = getActionMap();
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT, InputEvent.SHIFT_DOWN_MASK, false), "shiftPressed");
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_SHIFT, 0, true), "shiftReleased");
+        
+        am.put("shiftPressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shiftPressed = true;
+            }
+        });
+        
+        am.put("shiftReleased", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shiftPressed = false;
+            }
+        });
     }
 
     @Override
@@ -86,12 +117,12 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
     
     
     public void zoom(){
-        tailleCellule+=0.5;
+        tailleCellule+=1;
     }
     
     public void dezoom(){
-        if(plateau.getxN() * (tailleCellule - 0.5) >= 200 )
-            tailleCellule-=0.5;
+        if(plateau.getxN() * (tailleCellule - 1) >= 200 )
+            tailleCellule-=1;
     } 
 
     @Override
@@ -111,9 +142,16 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        Point location = e.getPoint();
-        controleur.switchEtatCase(tailleCellule, location.x, location.y);
-        repaint();
+        if(e.getButton() == MouseEvent.BUTTON1){
+            Point location = e.getPoint();
+            controleur.switchEtatCasePlateau(tailleCellule, location.x, location.y);
+            repaint();
+        }
+        else if(e.getButton() == MouseEvent.BUTTON3 && shiftPressed && !controleur.isPlaying()){
+            Point location = e.getPoint();
+            controleur.chargerTamponLocation(tailleCellule, location.x, location.y);
+            repaint();
+        }
     }
 
     @Override
@@ -121,4 +159,22 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
 
     @Override
     public void mouseExited(MouseEvent e) {}
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println(e.getKeyCode());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e.getKeyCode());
+        if(e.getKeyCode() == KeyEvent.VK_SHIFT)
+            shiftPressed = true;
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_SHIFT)
+            shiftPressed = false;
+    }
 }

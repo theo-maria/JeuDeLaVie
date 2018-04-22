@@ -48,13 +48,15 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         paramPanel = new ParamsPanel();
         pauseStartButton = new JButton();
         plateauPanel = new PlateauPanel(jeu.plateau, controller);
-        tamponPanel = new TamponPanel();
+        tamponPanel = new TamponPanel(jeu.zoneTampon, controller);
         jeuxPredefinisPanel = new JeuxPredefinisView();
         chargeButton = new JButton("Charger");
         quitButton = new JButton("Quit");
         quitButton.addActionListener(new QuitButtonListener());
         pauseStartButton.addActionListener(new PauseStartListener());
         pauseStartButton.setText("|>");
+        
+        chargeButton.addActionListener(new ChargeTamponListener());
         
         Box leftBox = Box.createVerticalBox();
         Box rightBox = Box.createVerticalBox();
@@ -80,10 +82,12 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        if(controller.isPlaying())
+        if(controller.isPlaying()){
             pauseStartButton.setText("||");
-        else
+        }
+        else{
             pauseStartButton.setText("|>");
+        }
     }
     
     private class QuitButtonListener implements ActionListener{
@@ -97,6 +101,13 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         @Override
         public void actionPerformed(ActionEvent e) {
             controller.switchPlayPause();
+        }
+    }
+    
+    private class ChargeTamponListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            controller.chargerTampon();
         }
     }
     
