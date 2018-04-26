@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import jeuDeLaVie.controller.JeuDeLaVieController;
 import jeuDeLaVie.model.EtatCellule;
 import jeuDeLaVie.model.JeuDeLaVie;
-import jeuDeLaVie.model.JeuxPredefinisView;
 import jeuDeLaVie.model.ZoneCellule;
 
 /**
@@ -32,7 +31,7 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
     private JButton pauseStartButton;
     private PlateauPanel plateauPanel;
     private TamponPanel tamponPanel;
-    private JeuxPredefinisView jeuxPredefinisPanel;
+    private JeuxPredefinisPanel jeuxPredefinisPanel;
     private JButton chargeButton;
     private JButton quitButton;
     
@@ -47,7 +46,7 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         pauseStartButton = new JButton();
         plateauPanel = new PlateauPanel(controller);
         tamponPanel = new TamponPanel(controller);
-        jeuxPredefinisPanel = new JeuxPredefinisView();
+        jeuxPredefinisPanel = new JeuxPredefinisPanel();
         chargeButton = new JButton("Charger");
         quitButton = new JButton("Quit");
         quitButton.addActionListener(new QuitButtonListener());

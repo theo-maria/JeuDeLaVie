@@ -26,9 +26,10 @@ public class Plateau extends ZoneCellule {
         for(int i=0;i<xN;i++){
             for(int j=0;j<yN;j++){
                 if(tableau.get(i) != null){
-                    if(tableau.get(i).get(j) != null)
+                    if(tableau.get(i).get(j) != null){
                         if(tableau.get(i).get(j))
                             setEtatCellule(EtatCellule.VIVANTE, i, j);
+                    }
                 }
             }
         }
@@ -61,7 +62,7 @@ public class Plateau extends ZoneCellule {
         return liste;
     }
     
-    private int getNbCellulesVoisinesVivantes(int x, int y){
+    private int getNbCellulesVoisines(int x, int y){
         return getCellulesVoisines(x, y).size();
     }
     
@@ -70,7 +71,7 @@ public class Plateau extends ZoneCellule {
         for(int i=0;i<xN-1;i++){
             matriceNbCellulesVivantes.add(new ArrayList<>());
             for(int j=0;j<yN;j++){
-                matriceNbCellulesVivantes.get(i).add(getNbCellulesVoisinesVivantes(i, j));
+                matriceNbCellulesVivantes.get(i).add(getNbCellulesVoisines(i, j));
             }
         }
         
