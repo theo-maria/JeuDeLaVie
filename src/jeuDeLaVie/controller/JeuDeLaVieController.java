@@ -128,8 +128,10 @@ public class JeuDeLaVieController extends Observable{
         return res;
     }
     
-    public void randomInit(){
-        
+    public void randomInit(String probaText){
+        int proba = Integer.valueOf(probaText);
+        if(proba >= 0 && proba <= 100)
+            jeu.initialiserPlateauAleatoire(((float)proba)/100);
     }
 
     public Boolean isPlaying() {
