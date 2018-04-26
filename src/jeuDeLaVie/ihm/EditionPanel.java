@@ -5,12 +5,14 @@
  */
 package jeuDeLaVie.ihm;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import jeuDeLaVie.controller.JeuDeLaVieController;
@@ -43,20 +45,52 @@ public class EditionPanel extends JPanel {
         yNField = new JTextField(String.valueOf(controller.jeu.plateau.getyN()));
         vBox.add(yNField);
         
+        resetButton = new JButton("Reinitialiser");
+        vBox.add(Box.createRigidArea(new Dimension(1,20)));
+        vBox.add(resetButton);
+        
+        initProba = new JButton("Initialisation aléatoire");
+        vBox.add(Box.createRigidArea(new Dimension(1,20)));
+        vBox.add(initProba);
+        
         add(vBox);
         
-        xNField.addActionListener(new ActionListener() {
+        ActionListener dimensionsListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                validerDimensions();
+                int confirmation = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment changer la taille du plateau ?");
+                if(confirmation == JOptionPane.YES_OPTION)
+                    validerDimensions();
             }
-        });
-        yNField.addActionListener(new ActionListener() {
+        };
+        
+        xNField.addActionListener(dimensionsListener);
+        yNField.addActionListener(dimensionsListener);
+        
+        ActionListener resetListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                validerDimensions();
+                int confirmation = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment réinitialiser le plateau ?");
+                if(confirmation == JOptionPane.YES_OPTION)
+                    controller.jeu.plateau.reinitialiser();
             }
-        });
+        };
+        
+        resetButton.addActionListener(resetListener);
+        
+        ActionListener initProbaListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String proba = JOptionPane.showInputDialog("A quelle probabilité voulez vous initialiser le nouveau plateau (en %) ?");
+                
+                
+                int confirmation = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment initialiser aléatoirement un nouveau plateau ?");
+                if(confirmation == JOptionPane.YES_OPTION)
+                    controller.randomInit(proba);
+            }
+        };
+        
+        initProba.addActionListener(initProbaListener);
     }
     
     public void validerDimensions(){

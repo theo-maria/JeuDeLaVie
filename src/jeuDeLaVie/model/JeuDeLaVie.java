@@ -6,6 +6,7 @@
 package jeuDeLaVie.model;
 
 import java.util.Observer;
+import java.util.Random;
 
 
 
@@ -143,5 +144,6 @@ public class JeuDeLaVie{
         newPlateau.addObserver(plateauObserver);
         plateau.deleteObserver(plateauObserver);
         plateau = newPlateau;
+        plateau.updateObservers();
     }
 }

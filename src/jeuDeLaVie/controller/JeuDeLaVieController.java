@@ -128,13 +128,29 @@ public class JeuDeLaVieController extends Observable{
         return res;
     }
     
-    public void randomInit(){
-        
+    public void randomInit(String probaText){
+        int proba = Integer.valueOf(probaText);
+        if(proba >= 0 && proba <= 100)
+            jeu.initialiserPlateauAleatoire(((float)proba)/100);
     }
 
     public Boolean isPlaying() {
         return playing;
     }
     
-    
+    public void changeParams(String solitudeText, String asphyxieText, String vieMinText, String vieMaxText){
+        int solitude = Integer.valueOf(solitudeText);
+        int asphyxie = Integer.valueOf(asphyxieText);
+        int vieMin = Integer.valueOf(vieMinText);
+        int vieMax = Integer.valueOf(vieMaxText);
+        
+        if(solitude >=0 && solitude <= 8)
+            JeuDeLaVie.mortSolitude = solitude;
+        if(asphyxie >=0 && asphyxie <= 8)
+            JeuDeLaVie.mortAsphyxie = asphyxie;
+        if(vieMin >=0 && vieMin <= 8)
+            JeuDeLaVie.vieMin = vieMin;
+        if(vieMax >=0 && vieMax <= 8)
+            JeuDeLaVie.vieMax = vieMax;
+    }
 }

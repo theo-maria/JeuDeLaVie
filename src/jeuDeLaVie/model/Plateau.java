@@ -68,14 +68,14 @@ public class Plateau extends ZoneCellule {
     
     public void gotoEtatSuivant(){
         ArrayList<ArrayList<Integer>> matriceNbCellulesVivantes = new ArrayList<>();
-        for(int i=0;i<xN-1;i++){
+        for(int i=0;i<xN;i++){
             matriceNbCellulesVivantes.add(new ArrayList<>());
             for(int j=0;j<yN;j++){
                 matriceNbCellulesVivantes.get(i).add(getNbCellulesVoisines(i, j));
             }
         }
         
-        for(int i=0;i<xN-1;i++){
+        for(int i=0;i<xN;i++){
             for(int j=0;j<yN;j++){
                 int nb = matriceNbCellulesVivantes.get(i).get(j);
                 if(nb >= JeuDeLaVie.mortAsphyxie ||
@@ -86,12 +86,16 @@ public class Plateau extends ZoneCellule {
                     setEtatCellule(EtatCellule.VIVANTE, i, j);
             }
         }
-        this.setChanged();
-        this.notifyObservers();
+        updateObservers();
     }
     
     @Override
     public void reinitialiser(){
         super.reinitialiser();
+    }
+    
+    public void updateObservers(){
+        setChanged();
+        notifyObservers();
     }
 }

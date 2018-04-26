@@ -42,7 +42,7 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         this.controller = controller;
 
         editPanel = new EditionPanel(controller);
-        paramPanel = new ParamsPanel();
+        paramPanel = new ParamsPanel(controller);
         pauseStartButton = new JButton();
         plateauPanel = new PlateauPanel(controller);
         tamponPanel = new TamponPanel(controller);
