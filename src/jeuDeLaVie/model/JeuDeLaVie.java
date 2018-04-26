@@ -61,16 +61,78 @@ public class JeuDeLaVie{
         if(yN < Y_PLATEAU_MIN)
             yN = Y_PLATEAU_MIN;
         
+        int diff_xN = (xN - plateau.getxN())/2;
+        int diff_yN = (yN - plateau.getyN())/2;
         Plateau newPlateau = new Plateau(xN, yN);
         newPlateau.addObserver(plateauObserver);
         plateau.deleteObserver(plateauObserver);
-        for(int i=0;i < xN; i++){
-            for(int j=0;j < yN;j++){
-                if(i < plateau.getxN() && j < plateau.getyN()){
-                    newPlateau.setEtatCellule(plateau.getEtatCellule(i, j), i, j);
+        if(diff_xN > 0 && diff_yN > 0)
+        {
+            for(int i=0;i < xN; i++){
+                for(int j=0;j < yN;j++){
+                    if(i < plateau.getxN() && j < plateau.getyN()){
+                    newPlateau.setEtatCellule(plateau.getEtatCellule(i, j), i+diff_xN, j+diff_yN);
+                    }else{
+                    //newPlateau.setEtatCellule(EtatCellule.MORTE, i, j);
+                    }
                 }
             }
         }
+        else if(diff_xN > 0 && diff_yN < 0)
+        {
+            for(int i=0;i < xN; i++){
+                for(int j=0;j < yN;j++){
+                    if(i < plateau.getxN() && j < plateau.getyN()+diff_yN){
+                    newPlateau.setEtatCellule(plateau.getEtatCellule(i, j-diff_yN), i+diff_xN, j);
+                    }else{
+                    //newPlateau.setEtatCellule(EtatCellule.MORTE, i, j);
+                    }
+                }
+            }
+        }
+        else if(diff_xN < 0 && diff_yN > 0)
+        {
+            for(int i=0;i < xN; i++){
+                for(int j=0;j < yN;j++){
+                    if(i < plateau.getxN()+diff_xN && j < plateau.getyN()){
+                    newPlateau.setEtatCellule(plateau.getEtatCellule(i-diff_xN, j), i, j+diff_yN);
+                    }else{
+                    //newPlateau.setEtatCellule(EtatCellule.MORTE, i, j);
+                    }
+                }
+            }
+        }
+        else if(diff_xN < 0 && diff_yN < 0)
+        {
+            for(int i=0;i < xN; i++){
+                for(int j=0;j < yN;j++){
+                    if(i < plateau.getxN()+diff_xN && j < plateau.getyN()+diff_yN){
+                    newPlateau.setEtatCellule(plateau.getEtatCellule(i-diff_xN, j-diff_yN), i, j);
+                    }else{
+                    //newPlateau.setEtatCellule(EtatCellule.MORTE, i, j);
+                    }
+                }
+            }
+        }
+        
+        /*
+        for(int i=0;i < xN; i++){
+            for(int j=0;j < yN;j++){
+                if(i < plateau.getxN() && j < plateau.getyN()){
+                    if(!(i+diff_xN < 0) && !(j+diff_yN < 0))
+                        newPlateau.setEtatCellule(plateau.getEtatCellule(i, j), i+diff_xN, j+diff_yN);
+                    else if(!(i-diff_xN < 0) && !(j-diff_yN < 0))
+                        newPlateau.setEtatCellule(plateau.getEtatCellule(i-diff_xN, j-diff_yN), i, j);
+                    else if(!(i-diff_xN < 0) && !(j-diff_yN < 0))
+                        newPlateau.setEtatCellule(plateau.getEtatCellule(i-diff_xN, j-diff_yN), i, j);
+                    else if(!(i-diff_xN < 0) && !(j-diff_yN < 0))
+                        newPlateau.setEtatCellule(plateau.getEtatCellule(i-diff_xN, j-diff_yN), i, j);
+                    else
+                        newPlateau.setEtatCellule(EtatCellule.MORTE, i, j);
+                }
+            }
+        }
+*/
         plateau = newPlateau;
         int[] dimensions = {xN, yN};
         return dimensions;
