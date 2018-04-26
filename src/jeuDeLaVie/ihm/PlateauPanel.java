@@ -86,10 +86,10 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
         Line2D line;
         Rectangle2D rectangle;
         
-        
+        ArrayList<ArrayList<Boolean>> tableau = controleur.jeu.plateau.getTableauBooleen();
         for(int i=0;i<controleur.jeu.plateau.getxN();i++){
             for(int j=0;j<controleur.jeu.plateau.getyN();j++){
-                if(controleur.jeu.plateau.getTableauBooleen().get(i).get(j) == true){
+                if(tableau.get(i).get(j) == true){
                     rectangle = new Rectangle2D.Float(i*tailleCellule, j*tailleCellule, tailleCellule, tailleCellule);
                     g2.setColor(Color.RED);
                     g2.fill(rectangle);
