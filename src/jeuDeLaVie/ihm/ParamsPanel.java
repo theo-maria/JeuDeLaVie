@@ -50,8 +50,13 @@ public class ParamsPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int confirmation = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment valider les paramètres ?");
-                if(confirmation == JOptionPane.YES_OPTION)
-                    controller.changeParams(solitudeField.getText(), asphyxieField.getText(), vieMinField.getText(), vieMaxField.getText());
+                if(confirmation == JOptionPane.YES_OPTION){
+                    String[] params = controller.changeParams(solitudeField.getText(), asphyxieField.getText(), vieMinField.getText(), vieMaxField.getText());
+                    solitudeField.setText(params[0]);
+                    asphyxieField.setText(params[1]);
+                    vieMinField.setText(params[2]);
+                    vieMaxField.setText(params[3]);
+                }
             }
         };
         

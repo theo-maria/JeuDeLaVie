@@ -138,7 +138,7 @@ public class JeuDeLaVieController extends Observable{
         return playing;
     }
     
-    public void changeParams(String solitudeText, String asphyxieText, String vieMinText, String vieMaxText){
+    public String[] changeParams(String solitudeText, String asphyxieText, String vieMinText, String vieMaxText){
         int solitude = Integer.valueOf(solitudeText);
         int asphyxie = Integer.valueOf(asphyxieText);
         int vieMin = Integer.valueOf(vieMinText);
@@ -146,11 +146,22 @@ public class JeuDeLaVieController extends Observable{
         
         if(solitude >=0 && solitude <= 8)
             JeuDeLaVie.mortSolitude = solitude;
+        else
+            solitudeText = String.valueOf(JeuDeLaVie.mortSolitude);
         if(asphyxie >=0 && asphyxie <= 8)
             JeuDeLaVie.mortAsphyxie = asphyxie;
+        else
+            asphyxieText = String.valueOf(JeuDeLaVie.mortAsphyxie);
         if(vieMin >=0 && vieMin <= 8)
             JeuDeLaVie.vieMin = vieMin;
+        else
+            vieMinText = String.valueOf(JeuDeLaVie.vieMin);
         if(vieMax >=0 && vieMax <= 8)
             JeuDeLaVie.vieMax = vieMax;
+        else
+            vieMaxText = String.valueOf(JeuDeLaVie.vieMax);
+        
+        String res[] = {solitudeText, asphyxieText, vieMinText, vieMaxText};
+        return res;
     }
 }
