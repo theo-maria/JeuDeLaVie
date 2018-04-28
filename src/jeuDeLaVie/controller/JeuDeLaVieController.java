@@ -58,16 +58,6 @@ public class JeuDeLaVieController extends Observable{
         this.notifyObservers();
     }
     
-    public void chargerTampon(){
-        jeu.plateau.reinitialiser();
-        for(int i=0;i<jeu.zoneTampon.getxN();i++){
-            for(int j=0;j<jeu.zoneTampon.getyN();j++){
-                if(jeu.zoneTampon.getEtatCellule(i, j).equals(EtatCellule.VIVANTE))
-                    jeu.plateau.setEtatCellule(EtatCellule.VIVANTE, i, j);
-            }
-        }
-    }
-    
     public void chargerTamponLocation(int tailleCellule, int startX, int startY){
         int x = startX/tailleCellule;
         int y = startY/tailleCellule;

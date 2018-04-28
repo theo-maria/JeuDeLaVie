@@ -20,19 +20,9 @@ public class Plateau extends ZoneCellule {
         super(xN,yN);
     }
     
-    public Plateau(int xN, int yN, List<List<Boolean>> tableau)
+    public Plateau(int xN, int yN, Boolean[][] tableau)
     {
-        super(xN,yN);
-        for(int i=0;i<xN;i++){
-            for(int j=0;j<yN;j++){
-                if(tableau.get(i) != null){
-                    if(tableau.get(i).get(j) != null){
-                        if(tableau.get(i).get(j))
-                            setEtatCellule(EtatCellule.VIVANTE, i, j);
-                    }
-                }
-            }
-        }
+        super(xN,yN, tableau);
     }
     
     public Plateau(int xN, int yN, float p)
@@ -92,10 +82,5 @@ public class Plateau extends ZoneCellule {
     @Override
     public void reinitialiser(){
         super.reinitialiser();
-    }
-    
-    public void updateObservers(){
-        setChanged();
-        notifyObservers();
     }
 }

@@ -6,6 +6,7 @@
 package jeuDeLaVie.model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -26,6 +27,22 @@ public class ZoneCellule extends Observable {
         creerCellules(xN, yN);
     }
     
+    public ZoneCellule(int xN, int yN, Boolean[][] tableau)
+    {
+        this(xN,yN);
+        for(int i=0;i<xN;i++){
+            for(int j=0;j<yN;j++){
+                if(tableau[i] != null){
+                    if(tableau[j][i] != null){
+                        if(tableau[j][i])
+                            setEtatCellule(EtatCellule.VIVANTE, i, j);
+                    }
+                }
+            }
+        }
+        updateObservers();
+    }
+    
     protected void creerCellules(int x, int y){
         tableauCellule = new ArrayList<>();
         for(int i=0 ; i<x ; i++){
@@ -34,8 +51,7 @@ public class ZoneCellule extends Observable {
                 tableauCellule.get(i).add(new Cellule());
             }
         }
-        this.setChanged();
-        this.notifyObservers();
+        updateObservers();
     }
     
     public EtatCellule getEtatCellule(int x, int y){
@@ -45,8 +61,7 @@ public class ZoneCellule extends Observable {
     public void setEtatCellule(EtatCellule etat, int x, int y)
     {
         this.tableauCellule.get(x).get(y).setEtat(etat);
-        this.setChanged();
-        this.notifyObservers();
+        updateObservers();
     }
     
     public ArrayList<ArrayList<Boolean>> getTableauBooleen()
@@ -97,7 +112,11 @@ public class ZoneCellule extends Observable {
             for(Cellule c : liste)
                 c.setEtat(EtatCellule.MORTE);
         }
-        this.setChanged();
-        this.notifyObservers();
+        updateObservers();
+    }
+    
+    public void updateObservers(){
+        setChanged();
+        notifyObservers();
     }
 }

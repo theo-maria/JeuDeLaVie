@@ -5,6 +5,10 @@
  */
 package jeuDeLaVie.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Observer;
 import java.util.Random;
 
@@ -28,6 +32,8 @@ public class JeuDeLaVie{
     private static final int VIE_MIN_DEFAULT = 3;
     private static final int VIE_MAX_DEFAULT = 3;
     
+    private List<JeuPredefini> jeuxPredefinis;
+    
     public static int mortSolitude;
     public static int mortAsphyxie;
     public static int vieMin;
@@ -44,6 +50,8 @@ public class JeuDeLaVie{
         mortAsphyxie = MORT_ASPHYXIE_DEFAULT;
         vieMin = VIE_MIN_DEFAULT;
         vieMax = VIE_MAX_DEFAULT;
+        
+        initJeuxPredefinis();
         
         plateau = new Plateau(X_PLATEAU_DEFAULT, Y_PLATEAU_DEFAULT);
         zoneTampon = new ZoneCellule(X_TAMPON_DEFAULT, Y_TAMPON_DEFAULT);
@@ -146,4 +154,47 @@ public class JeuDeLaVie{
         plateau = newPlateau;
         plateau.updateObservers();
     }
+    
+    public void initJeuxPredefinis(){
+        jeuxPredefinis = new ArrayList<>();
+        
+        Boolean[][] jeu1 = {{false, true, false, false, false, false, false, false, false, false},
+                            {true, true, true, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, true, false},
+                            {false, false, false, false, false, false, false, true, true, true}};
+        
+        Boolean[][] jeu2 = {{true, true, false, true, true, false, true, true, false, false},
+                            {true, true, false, true, true, false, true, true, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {true, true, false, true, true, false, true, true, false, false},
+                            {true, true, false, true, true, false, true, true, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {true, true, false, true, true, false, true, true, false, false},
+                            {true, true, false, true, true, false, true, true, false, false},
+                            {false, false, false, false, false, false, false, false, false, false},
+                            {false, false, false, false, false, false, false, false, false, false}};
+        
+        jeuxPredefinis.add(new JeuPredefini("Formes évolutives", jeu1));
+        jeuxPredefinis.add(new JeuPredefini("Formes fixes", jeu2));
+    }
+    
+    public void chargerJeuPredefini(JeuPredefini jeuPredefini){
+        ZoneCellule newZoneTampon = new ZoneCellule(X_TAMPON_DEFAULT, Y_TAMPON_DEFAULT, jeuPredefini.getTableau());
+        zoneTampon.deleteObserver(tamponObserver);
+        newZoneTampon.addObserver(tamponObserver);
+        zoneTampon = newZoneTampon;
+        zoneTampon.updateObservers();
+    }
+
+    public List<JeuPredefini> getJeuxPredefinis() {
+        return jeuxPredefinis;
+    }
+    
+    
 }

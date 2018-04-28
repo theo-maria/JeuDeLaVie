@@ -38,10 +38,10 @@ public class EditionPanel extends JPanel {
         Box vBox = Box.createVerticalBox();
         
         vBox.add(new JLabel("Edition du plateau"));
-        vBox.add(new JLabel("x:"));
+        vBox.add(new JLabel("Longueur (x) :"));
         xNField = new JTextField(String.valueOf(controller.jeu.plateau.getxN()));
         vBox.add(xNField);
-        vBox.add(new JLabel("y:"));
+        vBox.add(new JLabel("Longueur (y) :"));
         yNField = new JTextField(String.valueOf(controller.jeu.plateau.getyN()));
         vBox.add(yNField);
         

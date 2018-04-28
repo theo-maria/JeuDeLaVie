@@ -32,7 +32,6 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
     private PlateauPanel plateauPanel;
     private TamponPanel tamponPanel;
     private JeuxPredefinisPanel jeuxPredefinisPanel;
-    private JButton chargeButton;
     private JButton quitButton;
     
     public JeuDeLaVieMainFrame(JeuDeLaVieController controller) {
@@ -46,14 +45,11 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         pauseStartButton = new JButton();
         plateauPanel = new PlateauPanel(controller);
         tamponPanel = new TamponPanel(controller);
-        jeuxPredefinisPanel = new JeuxPredefinisPanel();
-        chargeButton = new JButton("Charger");
+        jeuxPredefinisPanel = new JeuxPredefinisPanel(controller);
         quitButton = new JButton("Quit");
         quitButton.addActionListener(new QuitButtonListener());
         pauseStartButton.addActionListener(new PauseStartListener());
         pauseStartButton.setText("|>");
-        
-        chargeButton.addActionListener(new ChargeTamponListener());
         
         Box leftBox = Box.createVerticalBox();
         Box rightBox = Box.createVerticalBox();
@@ -64,7 +60,7 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         
         rightBox.add(tamponPanel);
         rightBox.add(jeuxPredefinisPanel);
-        rightBox.add(chargeButton);
+        rightBox.add(Box.createGlue());
         rightBox.add(Box.createGlue());
         rightBox.add(quitButton);
         
@@ -72,7 +68,7 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         add(plateauPanel, BorderLayout.CENTER);
         add(rightBox, BorderLayout.EAST);
         
-        setMinimumSize(new Dimension(800,600));
+        setMinimumSize(new Dimension(1000,600));
         
         setVisible(true);
     }
@@ -98,13 +94,6 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         @Override
         public void actionPerformed(ActionEvent e) {
             controller.switchPlayPause();
-        }
-    }
-    
-    private class ChargeTamponListener implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            controller.chargerTampon();
         }
     }
     
