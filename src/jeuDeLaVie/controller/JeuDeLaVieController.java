@@ -79,6 +79,7 @@ public class JeuDeLaVieController extends Observable{
             playing = true;
         this.setChanged();
         this.notifyObservers();
+        jeu.plateau.updateObservers();
     }
     
     /**

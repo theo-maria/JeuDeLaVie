@@ -70,9 +70,11 @@ public class EditionPanel extends JPanel {
         ActionListener dimensionsListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int confirmation = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment changer la taille du plateau ?");
-                if(confirmation == JOptionPane.YES_OPTION)
-                    validerDimensions();
+                if(!controller.isPlaying()){
+                    int confirmation = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment changer la taille du plateau ?");
+                    if(confirmation == JOptionPane.YES_OPTION)
+                        validerDimensions();
+                }
             }
         };
         
@@ -94,7 +96,6 @@ public class EditionPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String proba = JOptionPane.showInputDialog("A quelle probabilité voulez vous initialiser le nouveau plateau (en %) ?");
-                
                 
                 int confirmation = JOptionPane.showConfirmDialog(null, "Voulez vous vraiment initialiser aléatoirement un nouveau plateau ?");
                 if(confirmation == JOptionPane.YES_OPTION)

@@ -106,19 +106,24 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
                     g2.setColor(Color.RED);
                     g2.fill(rectangle);
                 }
-                line = new Line2D.Float(0,j*tailleCellule,controleur.jeu.plateau.getxN()*tailleCellule,j*tailleCellule);
+                if(!controleur.isPlaying()){
+                    line = new Line2D.Float(0,j*tailleCellule,controleur.jeu.plateau.getxN()*tailleCellule,j*tailleCellule);
+                    g2.setColor(Color.BLACK);
+                    g2.draw(line);
+                }
+            }
+            line = new Line2D.Float(i*tailleCellule,0,i*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
+            if(!controleur.isPlaying()){
                 g2.setColor(Color.BLACK);
                 g2.draw(line);
             }
-            line = new Line2D.Float(i*tailleCellule,0,i*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
-            g2.setColor(Color.BLACK);
+        }
+        if(!controleur.isPlaying()){
+            line = new Line2D.Float(0,controleur.jeu.plateau.getyN()*tailleCellule,controleur.jeu.plateau.getxN()*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
+            g2.draw(line);
+            line = new Line2D.Float(controleur.jeu.plateau.getxN()*tailleCellule,0,controleur.jeu.plateau.getxN()*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
             g2.draw(line);
         }
-        
-        line = new Line2D.Float(0,controleur.jeu.plateau.getyN()*tailleCellule,controleur.jeu.plateau.getxN()*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
-        g2.draw(line);
-        line = new Line2D.Float(controleur.jeu.plateau.getxN()*tailleCellule,0,controleur.jeu.plateau.getxN()*tailleCellule,controleur.jeu.plateau.getyN()*tailleCellule);
-        g2.draw(line);
     }
     
     /**
@@ -161,21 +166,23 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
      */
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(e.getButton() == MouseEvent.BUTTON1){
-            Point location = e.getPoint();
-            controleur.switchEtatCasePlateau(tailleCellule, location.x, location.y);
-            repaint();
-        }
-        else if(e.getButton() == MouseEvent.BUTTON3 && !controleur.isPlaying()){
-            if(shiftPressed){
+        if(!controleur.isPlaying()){
+            if(e.getButton() == MouseEvent.BUTTON1){
                 Point location = e.getPoint();
-                controleur.chargerTamponToPlateau(tailleCellule, location.x, location.y);
+                controleur.switchEtatCasePlateau(tailleCellule, location.x, location.y);
                 repaint();
             }
-            else{
-                Point location = e.getPoint();
-                controleur.chargerPlateauToTampon(tailleCellule, location.x, location.y);
-                repaint();
+            else if(e.getButton() == MouseEvent.BUTTON3 ){
+                if(shiftPressed){
+                    Point location = e.getPoint();
+                    controleur.chargerTamponToPlateau(tailleCellule, location.x, location.y);
+                    repaint();
+                }
+                else{
+                    Point location = e.getPoint();
+                    controleur.chargerPlateauToTampon(tailleCellule, location.x, location.y);
+                    repaint();
+                }
             }
         }
     }
