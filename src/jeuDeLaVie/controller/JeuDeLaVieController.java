@@ -108,7 +108,7 @@ public class JeuDeLaVieController extends Observable{
     }
     
     /**
-     * 
+     * Permet de charger une partie du contenu du plateau dans la zone tampon 
      * @param tailleCellule le nombre de pixels occupés par une cellule
      * @param startX la postion de départ sur l'axe horizontal (en pixels)
      * @param startY la postion de départ sur l'axe vertical (en pixels)

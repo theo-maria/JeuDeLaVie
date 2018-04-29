@@ -36,7 +36,7 @@ public class EditionPanel extends JPanel {
     private JButton resetButton;
     
     /**
-     * Bouton permettant d'initialiser un plteau aléatoire
+     * Bouton permettant d'initialiser un plateau aléatoire
      */
     private JButton initProba;
     

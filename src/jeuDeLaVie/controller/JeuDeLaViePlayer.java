@@ -23,7 +23,7 @@ public class JeuDeLaViePlayer extends Thread{
 
     
     /**
-     * Permet de délarrer le thread de la lecture automatique
+     * Permet de lancer le thread de la lecture automatique
      */
     @Override
     public void run() {
