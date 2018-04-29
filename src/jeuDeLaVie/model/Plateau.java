@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.model;
 
 import java.util.ArrayList;
@@ -10,21 +5,37 @@ import java.util.List;
 import java.util.Random;
 
 /**
- *
- * @author tmaria
+ * Le plateau du jeu de la vie
  */
 public class Plateau extends ZoneCellule {
     
+    /**
+     * Permet d'initier un plateau à partir de sa taille
+     * @param xN taille horizontale
+     * @param yN taille verticale
+     */
     public Plateau(int xN, int yN)
     {
         super(xN,yN);
     }
     
+    /**
+     * Permet d'initier un plateau à partir de sa taille et un tableau de booleens
+     * @param xN taille horizontale
+     * @param yN taille verticale
+     * @param tableau tableau de booleens
+     */
     public Plateau(int xN, int yN, Boolean[][] tableau)
     {
         super(xN,yN, tableau);
     }
     
+    /**
+     * Permet d'initier un plateau à partir de sa taille et une probabilité
+     * @param xN taille horizontale
+     * @param yN taille verticale
+     * @param p probabilité d'avoir une cellule
+     */
     public Plateau(int xN, int yN, float p)
     {
         super(xN,yN);
@@ -37,6 +48,12 @@ public class Plateau extends ZoneCellule {
         }
     }
     
+    /**
+     * Permet d'obtenir les celulles voisines à une cellule du plateau
+     * @param x position sur l'axe horizontal de la cellule
+     * @param y position sur l'axe vertical de la cellule
+     * @return les cellules voisines
+     */
     private List<Cellule> getCellulesVoisines(int x, int y){
         List<Cellule> liste = new ArrayList<>();
         for(int i=-1;i < 2;i++){
@@ -52,10 +69,19 @@ public class Plateau extends ZoneCellule {
         return liste;
     }
     
+    /**
+     * Permet d'obtenir le nombre de voisins d'une celulle du plateau
+     * @param x position sur l'axe horizontal de la cellule
+     * @param y position sur l'axe vertical de la cellule
+     * @return le nombre de voisins
+     */
     private int getNbCellulesVoisines(int x, int y){
         return getCellulesVoisines(x, y).size();
     }
     
+    /**
+     * Permet au plateau de passer à son état suivant (n+1)
+     */
     public void gotoEtatSuivant(){
         ArrayList<ArrayList<Integer>> matriceNbCellulesVivantes = new ArrayList<>();
         for(int i=0;i<xN;i++){
@@ -79,6 +105,9 @@ public class Plateau extends ZoneCellule {
         updateObservers();
     }
     
+    /**
+     * Permet de vider le plateau de ses cellules
+     */
     @Override
     public void reinitialiser(){
         super.reinitialiser();

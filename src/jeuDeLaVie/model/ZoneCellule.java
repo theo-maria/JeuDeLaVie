@@ -1,24 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.model;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 
 /**
- *
- * @author tmaria
+ * Une zone contenant un certain nombre de cellules
  */
 public class ZoneCellule extends Observable {
     
+    /**
+     * La taille horizontale
+     */
     protected int xN;
+    /**
+     * La taille verticale
+     */
     protected int yN;
+    
+    /**
+     * Les cellules de la zone
+     */
     protected ArrayList<ArrayList<Cellule>> tableauCellule;
     
+    /**
+     * Permet d'initier une ZoneCellule à partir de sa taille
+     * @param xN taille horizontale
+     * @param yN taille verticale
+     */
     public ZoneCellule(int xN, int yN)
     {
         this.xN = xN;
@@ -27,6 +35,12 @@ public class ZoneCellule extends Observable {
         creerCellules(xN, yN);
     }
     
+    /**
+     * Permet d'initier une ZoneCellule à partir de sa taille et un tableau de booleens
+     * @param xN taille horizontale
+     * @param yN taille verticale
+     * @param tableau le tableau de booleens
+     */
     public ZoneCellule(int xN, int yN, Boolean[][] tableau)
     {
         this(xN,yN);
@@ -43,6 +57,11 @@ public class ZoneCellule extends Observable {
         updateObservers();
     }
     
+    /**
+     * Permet de créer les cellules de la zone
+     * @param x taille horizontale
+     * @param y taille verticale
+     */
     protected void creerCellules(int x, int y){
         tableauCellule = new ArrayList<>();
         for(int i=0 ; i<x ; i++){
@@ -54,16 +73,32 @@ public class ZoneCellule extends Observable {
         updateObservers();
     }
     
+    /**
+     * Permet d'obtenir l'état d'une cellule à un emplacement de la zone
+     * @param x position horizontale
+     * @param y position verticale
+     * @return l'état de la cellule
+     */
     public EtatCellule getEtatCellule(int x, int y){
         return tableauCellule.get(x).get(y).getEtat();
     }
     
+    /**
+     * Permet de définir l'état d'une cellule à un emplacement de la zone
+     * @param etat état de la cellule
+     * @param x position horizontale
+     * @param y position verticale
+     */
     public void setEtatCellule(EtatCellule etat, int x, int y)
     {
         this.tableauCellule.get(x).get(y).setEtat(etat);
         updateObservers();
     }
     
+    /**
+     * Permet d'obtenir un tableau de booleens correspondant à la zone
+     * @return tableau de booleens
+     */
     public ArrayList<ArrayList<Boolean>> getTableauBooleen()
     {
         ArrayList<ArrayList<Boolean>> tabBooleen = new ArrayList<>();
@@ -84,6 +119,9 @@ public class ZoneCellule extends Observable {
         return tabBooleen;
     }
     
+    /**
+     * Permet d'afficher le contenu de la zone en console, à des fins de test
+     */
     public void afficherZoneConsole(){
         int cptLigne = 0;
         for(ArrayList<Boolean> ligne : getTableauBooleen()){
@@ -99,14 +137,25 @@ public class ZoneCellule extends Observable {
         }
     }
 
+    /**
+     * Permet d'obtenir la taille horizontale de la zone
+     * @return taille horizontale
+     */
     public int getxN() {
         return xN;
     }
 
+    /**
+     * Permet d'obtenir la taille verticale de la zone
+     * @return taille verticale
+     */
     public int getyN() {
         return yN;
     }
     
+    /**
+     * Permet de vider la zone de ses cellules
+     */
     public void reinitialiser(){
         for(ArrayList<Cellule> liste : tableauCellule){
             for(Cellule c : liste)
@@ -115,6 +164,9 @@ public class ZoneCellule extends Observable {
         updateObservers();
     }
     
+    /**
+     * Permet de prévenir les classes observatrices d'un changement
+     */
     public void updateObservers(){
         setChanged();
         notifyObservers();

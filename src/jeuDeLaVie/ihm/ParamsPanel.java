@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.ihm;
 
 import java.awt.event.ActionEvent;
@@ -16,17 +11,35 @@ import jeuDeLaVie.controller.JeuDeLaVieController;
 import jeuDeLaVie.model.JeuDeLaVie;
 
 /**
- *
- * @author tmaria
+ * Permet de gérer les paramètres de jeu
  */
 public class ParamsPanel extends JPanel {
 
+    /**
+     * Le controleur du jeu
+     */
     private JeuDeLaVieController controller;
+    /**
+     * Le champ du paramètre "mort solitude"
+     */
     private JTextField solitudeField;
+    /**
+     * Le champ du paramètre "mort asphyxie"
+     */
     private JTextField asphyxieField;
+    /**
+     * Le champ du paramètre "vie min"
+     */
     private JTextField vieMinField;
+    /**
+     * Le champ du paramètre "vie max"
+     */
     private JTextField vieMaxField;
     
+    /**
+     * Permet d'initier une instance de ParamsPanel
+     * @param controller le controleur du jeu
+     */
     public ParamsPanel(JeuDeLaVieController controller) {
         this.controller = controller;
         

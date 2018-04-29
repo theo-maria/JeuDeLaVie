@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.ihm;
 
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Box;
@@ -18,20 +12,38 @@ import javax.swing.JTextField;
 import jeuDeLaVie.controller.JeuDeLaVieController;
 
 /**
- *
- * @author tmaria
+ * Permet d'éditer les paramètres du jeu
  */
 public class EditionPanel extends JPanel {
 
+    /**
+     * Controleur du jeu
+     */
     private JeuDeLaVieController controller;
     
+    /**
+     * Champ de taille horizontale
+     */
     private JTextField xNField;
+    /**
+     * Champ de taille verticale
+     */
     private JTextField yNField;
     
+    /**
+     * Bouton de réinitialisation du plateau
+     */
     private JButton resetButton;
     
+    /**
+     * Bouton permettant d'initialiser un plteau aléatoire
+     */
     private JButton initProba;
     
+    /**
+     * Permet d'initier une instance de EditionPanel
+     * @param controller le controleur du jeu
+     */
     public EditionPanel(JeuDeLaVieController controller) {
         this.controller = controller;
         
@@ -93,6 +105,9 @@ public class EditionPanel extends JPanel {
         initProba.addActionListener(initProbaListener);
     }
     
+    /**
+     * Permet de valider les dimensions entrées afin de redimensionner le plateau
+     */
     public void validerDimensions(){
         int[] dim = controller.setTaillePlateau(xNField.getText(), yNField.getText());
         xNField.setText(String.valueOf(dim[0]));

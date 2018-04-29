@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.ihm;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,14 +11,26 @@ import jeuDeLaVie.controller.JeuDeLaVieController;
 import jeuDeLaVie.model.JeuPredefini;
 
 /**
- *
- * @author Theo
+ * Permet de gérer les jeux prédéfinis
  */
 public class JeuxPredefinisPanel extends JPanel {
+    /**
+     * Champ de sélection du jeu prédéfini
+     */
     private JComboBox jeux;
+    /**
+     * Controleur du jeu
+     */
     private JeuDeLaVieController controller;
+    /**
+     * Permet de charger le jeu sélectionné dans la zone tampon
+     */
     private JButton chargeButton;
 
+    /**
+     * Permet d'initier une instance de JeuxPredefinisPanel
+     * @param controller le controleur du jeu
+     */
     public JeuxPredefinisPanel(JeuDeLaVieController controller) {
         this.controller = controller;
         

@@ -1,27 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.controller;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jeuDeLaVie.model.Plateau;
 
 /**
- *
- * @author Theo
+ * Permet de lancer une lecture automatique du jeu de la vie
  */
 public class JeuDeLaViePlayer extends Thread{
 
+    /**
+     * Le controleur du jeu
+     */
     private JeuDeLaVieController controller;
     
+    /**
+     * Permet d'initier une instance de JeuDeLaViePlayer
+     * @param controller le controleur du jeu
+     */
     public JeuDeLaViePlayer(JeuDeLaVieController controller) {
         this.controller = controller;
     }
 
     
+    /**
+     * Permet de délarrer le thread de la lecture automatique
+     */
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()){

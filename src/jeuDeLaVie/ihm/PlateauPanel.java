@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.ihm;
 
 import java.awt.Color;
@@ -24,25 +19,33 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import jeuDeLaVie.controller.JeuDeLaVieController;
-import jeuDeLaVie.model.EtatCellule;
-import jeuDeLaVie.model.Plateau;
-import jeuDeLaVie.model.ZoneCellule;
 
 /**
- *
- * @author tmaria
+ * Permet de gérer le plateau du jeu
  */
 public class PlateauPanel extends JPanel implements Observer, MouseWheelListener, MouseListener, KeyListener {
+    /**
+     * Taille d'une cellule (en pixels)
+     */
     private int tailleCellule;
+    /**
+     * Le controleur du jeu
+     */
     private JeuDeLaVieController controleur;
+    /**
+     * Indique si la touche 'shift' est pressée par l'utilisateur
+     */
     private Boolean shiftPressed = false;
     
+    /**
+     * Permet d'initier une instance de PlateauPanel
+     * @param controleur le controleur du jeu
+     */
     public PlateauPanel(JeuDeLaVieController controleur) {
         setMinimumSize(new Dimension(200,200));
         setSize(500,500);
@@ -73,11 +76,20 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
         });
     }
 
+    /**
+     * Permet d'indiquer les actions à effectuer en cas de mise à jour des objets observés
+     * @param o objet mis à jour
+     * @param arg arguments
+     */
     @Override
     public void update(Observable o, Object arg) {
         repaint();
     }
     
+    /**
+     * Permet de définir les actions à effectuer au moment de l'affichage du composant
+     * @param g l'objet Graphics
+     */
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -109,16 +121,25 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
         g2.draw(line);
     }
     
-    
+    /**
+     * Permet d'effectuer un zoom (augmenter le nombre de pixels par cellule)
+     */
     public void zoom(){
         tailleCellule+=1;
     }
     
+    /**
+     * Permet d'effectuer un dezoom (diminuer le nombre de pixels par cellule)
+     */
     public void dezoom(){
         if(controleur.jeu.plateau.getxN() * (tailleCellule - 1) >= 200 )
             tailleCellule-=1;
     } 
 
+    /**
+     * Permet de zoomer ou dezoomer suivant les mouvements de la molette
+     * @param e event
+     */
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         if(e.getWheelRotation() < 0)
@@ -134,6 +155,10 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
     @Override
     public void mousePressed(MouseEvent e) {}
 
+    /**
+     * Permet d'effectuer les actions lors des clics souris
+     * @param e 
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         if(e.getButton() == MouseEvent.BUTTON1){
@@ -144,12 +169,12 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
         else if(e.getButton() == MouseEvent.BUTTON3 && !controleur.isPlaying()){
             if(shiftPressed){
                 Point location = e.getPoint();
-                controleur.chargerTamponLocation(tailleCellule, location.x, location.y);
+                controleur.chargerTamponToPlateau(tailleCellule, location.x, location.y);
                 repaint();
             }
             else{
                 Point location = e.getPoint();
-                controleur.chargerPlateauLocation(tailleCellule, location.x, location.y);
+                controleur.chargerPlateauToTampon(tailleCellule, location.x, location.y);
                 repaint();
             }
         }
@@ -166,6 +191,10 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
         System.out.println(e.getKeyCode());
     }
 
+    /**
+     * Permet de détecter les appuis sur la touche shift
+     * @param e event
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         System.out.println(e.getKeyCode());
@@ -173,6 +202,10 @@ public class PlateauPanel extends JPanel implements Observer, MouseWheelListener
             shiftPressed = true;
     }
 
+    /**
+     * Permet de détecter le lâché de la touche shift
+     * @param e event
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_SHIFT)

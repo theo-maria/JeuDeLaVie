@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.ihm;
 
 import java.awt.Color;
@@ -17,23 +12,35 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JPanel;
 import jeuDeLaVie.controller.JeuDeLaVieController;
-import jeuDeLaVie.model.ZoneCellule;
 
 /**
- *
- * @author tmaria
+ * Permet de gérer la zone tampon
  */
 public class TamponPanel extends JPanel implements Observer, MouseListener {
 
+    /**
+     * Taille d'une cellule en pixels
+     */
     private final int TAILLE_CELLULE = 8;
+    /**
+     * Le controleur du jeu
+     */
     private JeuDeLaVieController controleur;
 
+    /**
+     * Permet d'initier une instance de TamponPanel
+     * @param controleur le controleur du jeu
+     */
     public TamponPanel(JeuDeLaVieController controleur) {
         this.setSize(controleur.jeu.zoneTampon.getxN()*TAILLE_CELLULE, controleur.jeu.zoneTampon.getyN()*TAILLE_CELLULE);
         this.controleur = controleur;
         this.addMouseListener(this);
     }
     
+    /**
+     * Permet de redéfinir l'affichage du composant
+     * @param g l'objet Graphics
+     */
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -68,6 +75,11 @@ public class TamponPanel extends JPanel implements Observer, MouseListener {
         g2.draw(line);
     }
     
+    /**
+     * Permet d'indiquer les actions à effectuer en cas de mise à jour des objets observés
+     * @param o objet mis à jour
+     * @param arg arguments
+     */
     @Override
     public void update(Observable o, Object arg) {
         repaint();
@@ -79,6 +91,10 @@ public class TamponPanel extends JPanel implements Observer, MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {}
 
+    /**
+     * Permet d'agir sur la cellule située à l'endroit où l'utilisateur a cliqué
+     * @param e 
+     */
     @Override
     public void mouseReleased(MouseEvent e) {
         Point location = e.getPoint();

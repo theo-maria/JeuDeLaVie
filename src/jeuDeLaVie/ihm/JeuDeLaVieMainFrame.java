@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jeuDeLaVie.ihm;
 
 import java.awt.BorderLayout;
@@ -20,20 +15,47 @@ import jeuDeLaVie.model.JeuDeLaVie;
 import jeuDeLaVie.model.ZoneCellule;
 
 /**
- *
- * @author tmaria
+ * Vue principale du jeu de la vie
  */
 public class JeuDeLaVieMainFrame extends JFrame implements Observer{
+    /**
+     * Controleur du jeu
+     */
     private JeuDeLaVieController controller;
     
+    /**
+     * Panneau d'édition
+     */
     private EditionPanel editPanel;
+    /**
+     * Panneau de paramétrage
+     */
     private ParamsPanel paramPanel;
+    /**
+     * Bouton de démarrage / stoppage de la lecture automatique
+     */
     private JButton pauseStartButton;
+    /**
+     * Panneau du plateau
+     */
     private PlateauPanel plateauPanel;
+    /**
+     * Panneau de la zone tampon
+     */
     private TamponPanel tamponPanel;
+    /**
+     * Panneau des jeux prédéfinis
+     */
     private JeuxPredefinisPanel jeuxPredefinisPanel;
+    /**
+     * Bouton pour quitter le jeu
+     */
     private JButton quitButton;
     
+    /**
+     * Permet d'initier une instance de JeuDeLaVieMainFrame
+     * @param controller le controleur du jeu
+     */
     public JeuDeLaVieMainFrame(JeuDeLaVieController controller) {
         setLocation (100, 100);
         setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
@@ -73,6 +95,11 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         setVisible(true);
     }
 
+    /**
+     * Permet d'indiquer les actions à effectuer en cas de mise à jour des objets observés
+     * @param o objet mis à jour
+     * @param arg arguments
+     */
     @Override
     public void update(Observable o, Object arg) {
         if(controller.isPlaying()){
@@ -83,6 +110,9 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         }
     }
     
+    /**
+     * ActionListener permettant de quitter 
+     */
     private class QuitButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -90,6 +120,9 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         }
     }
     
+    /**
+     * ActionListener permettant de mettre en pause ou démarrer la lecture automatique
+     */
     private class PauseStartListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -97,6 +130,10 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         }
     }
     
+    /**
+     * Méthode principale du programme
+     * @param args arguments
+     */
     public static void main(String [ ] args){
         //testConsole();
         
@@ -107,22 +144,33 @@ public class JeuDeLaVieMainFrame extends JFrame implements Observer{
         jeuView.pack();
     }
 
+    /**
+     * Permet d'obtenir le panneau du plateau
+     * @return panneau du plateau
+     */
     public PlateauPanel getPlateauPanel() {
         return plateauPanel;
     }
 
+    /**
+     * Permet d'obtenir le panneau de la zone tampon
+     * @return panneau de la zone tampon
+     */
     public TamponPanel getTamponPanel() {
         return tamponPanel;
     }
 
+    /**
+     * Permet d'obtenir le controleur du jeu
+     * @return controleur
+     */
     public JeuDeLaVieController getController() {
         return controller;
     }
     
-    
-    
-    
-    
+    /**
+     * Permet d'effectuer un test du jeu en console
+     */
     public static void testConsole(){
         JeuDeLaVie jeu = new JeuDeLaVie();
         ((ZoneCellule)jeu.plateau).setEtatCellule(EtatCellule.VIVANTE, 10, 10);
